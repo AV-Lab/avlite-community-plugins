@@ -1,0 +1,15 @@
+# AVLite Community Plugins Registry
+# This file serves as a registry for AVLite community plugins
+# Each plugin entry should follow the structure below
+
+plugins:
+  - name: ORBit_perception
+    description: ORBit perception plugin for AVLite
+    repository: https://github.com/AV-Lab/ORBit_perception
+    version: latest
+    author: AV-Lab
+    category: perception
+    tags:
+      - perception
+      - computer-vision
+    enabled: true
