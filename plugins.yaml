@@ -6,7 +6,7 @@ plugins:
   - name: ORBit_perception
     description: ORBit perception plugin for AVLite
     repository: https://github.com/AV-Lab/ORBit_perception
-    version: "0.1.0"
+    version: latest
     author: AV-Lab
     category: perception
     tags:
