@@ -2,14 +2,6 @@
 
 A central registry of community-maintained plugins for [AVLite](https://github.com/AV-Lab). This repository does **not** host plugin source code — each entry in the registry points to an external GitHub repository where the plugin lives. Tools and the AVLite runtime can consume `plugins.yaml` to discover, fetch, and install plugins.
 
-## Repository Layout
-
-| File / Directory | Purpose |
-| ---------------- | ------- |
-| `plugins.yaml`   | The machine-readable registry of all listed community plugins. |
-| `README.md`      | This document — describes the registry format and contribution process. |
-| `LICENSE`        | License covering the contents of this registry repository. |
-
 ## Plugin Registry Schema
 
 `plugins.yaml` has a single top-level key, `plugins`, whose value is a list of plugin entries. Each entry uses the following fields:
