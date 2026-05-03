@@ -13,7 +13,6 @@ The `plugins.yaml` file contains a registry of available AVLite community plugin
 - **author**: Plugin author or organization
 - **category**: Plugin category (e.g., perception, planning, control)
 - **tags**: List of tags for categorization
-- **enabled**: Whether the plugin is enabled by default
 
 ## Available Plugins
 
