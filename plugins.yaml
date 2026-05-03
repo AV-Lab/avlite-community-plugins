@@ -12,4 +12,3 @@ plugins:
     tags:
       - perception
       - computer-vision
-    enabled: true
