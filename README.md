@@ -20,34 +20,30 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 Use one of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
-- `perception` — sensing, detection, tracking, segmentation, fusion
-- `planning` — global/local planners, behavior planning, decision-making
-- `control` — vehicle controllers, actuation
-- `localization` — mapping, SLAM, pose estimation
-- `simulation` — simulators, scenario generation, synthetic data
-- `visualization` — UIs, dashboards, debug tooling
-- `utility` — shared libraries, helpers, integrations
+- `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
+- `LocalizationStrategy` — pose estimation, SLAM-based localization
+- `MappingStrategy` — map building, SLAM mapping, environment representation
+- `PlanningStrategy` — global/local planners, behavior planning, decision-making
+- `ControlStrategy` — vehicle controllers, actuation
+- `Executer` — runtime execution, scheduling, orchestration
+- `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 
 ### Example Entry
 
 ```yaml
 plugins:
-  - name: ORBit_perception
-    description: ORBit perception plugin for AVLite
-    repository: https://github.com/AV-Lab/ORBit_perception
+  - name: my_perception_plugin
+    description: One-line summary of what the plugin does
+    repository: https://github.com/your-org/your-plugin-repo
     version: latest
-    author: AV-Lab
-    category: perception
+    author: your-org
+    category: PerceptionStrategy
     tags:
       - perception
       - computer-vision
 ```
 
-## Available Plugins
-
-| Name | Category | Description | Repository |
-| ---- | -------- | ----------- | ---------- |
-| ORBit_perception | perception | ORBit perception plugin for AVLite | https://github.com/AV-Lab/ORBit_perception |
+The authoritative list of registered plugins lives in [`plugins.yaml`](plugins.yaml). Tools and the AVLite runtime consume that file directly.
 
 ## Contributing
 
@@ -55,9 +51,8 @@ To add or update a plugin in this registry:
 
 1. **Fork** this repository and create a feature branch.
 2. **Edit `plugins.yaml`** and append (or update) your plugin entry following the [schema](#plugin-registry-schema) above. Keep entries alphabetically sorted by `name` to minimize merge conflicts.
-3. **Update the [Available Plugins](#available-plugins) table** in this README so the human-readable listing stays in sync with `plugins.yaml`.
-4. **Verify your plugin repository** is public, has a clear `README`, a valid `LICENSE`, and a tagged release matching the `version` you list (unless you intentionally use `latest`).
-5. **Open a pull request** with a short description of the plugin and a link to its repository. A maintainer will review and merge.
+3. **Verify your plugin repository** is public, has a clear `README`, a valid `LICENSE`, and a tagged release matching the `version` you list (unless you intentionally use `latest`).
+4. **Open a pull request** with a short description of the plugin and a link to its repository. A maintainer will review and merge.
 
 ### Guidelines
 
@@ -68,7 +63,7 @@ To add or update a plugin in this registry:
 
 ### Removing or Renaming a Plugin
 
-If a plugin is no longer maintained or is being renamed, open a PR that updates or removes the corresponding entry in `plugins.yaml` and the [Available Plugins](#available-plugins) table, and explain the reason in the PR description.
+If a plugin is no longer maintained or is being renamed, open a PR that updates or removes the corresponding entry in `plugins.yaml`, and explain the reason in the PR description.
 
 ## License
 

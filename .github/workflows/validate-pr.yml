@@ -1,0 +1,42 @@
+name: Validate plugin registry PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "plugins.yaml"
+      - "README.md"
+      - ".github/scripts/validate_plugins.py"
+      - ".github/workflows/validate-pr.yml"
+  push:
+    branches: [main]
+    paths:
+      - "plugins.yaml"
+      - "README.md"
+      - ".github/scripts/validate_plugins.py"
+      - ".github/workflows/validate-pr.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate plugins.yaml against README guidelines
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip pyyaml
+
+      - name: Validate plugins.yaml and README
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/validate_plugins.py --check-remote
