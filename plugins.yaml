@@ -8,4 +8,5 @@ plugins:
     repository: https://github.com/AV-Lab/sample-avlite-plugin
     version: latest
     author: AV-Lab
-    category: PerceptionStrategy
+    category:
+      - PerceptionStrategy

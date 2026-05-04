@@ -13,12 +13,11 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 | `repository`  | URL (string)    | yes      | Public Git URL where the plugin source lives (typically a GitHub repository). |
 | `version`     | string          | yes      | Plugin version. Use a semver tag (e.g. `1.2.0`) or `latest` to track the default branch. |
 | `author`      | string          | yes      | Author name, GitHub user, or organization that maintains the plugin. |
-| `category`    | string          | yes      | Primary category. See [Categories](#categories) below. |
-| `tags`        | list of strings | no       | Free-form tags used for search and filtering (e.g. `lidar`, `ros2`, `simulation`). |
+| `category`    | list of strings | yes      | One or more categories that describe the plugin. See [Categories](#categories) below. |
 
 ### Categories
 
-Use one of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
+Use one or more of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
 - `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
 - `LocalizationStrategy` — pose estimation, SLAM-based localization
@@ -37,10 +36,8 @@ plugins:
     repository: https://github.com/your-org/your-plugin-repo
     version: latest
     author: your-org
-    category: PerceptionStrategy
-    tags:
-      - perception
-      - computer-vision
+    category:
+      - PerceptionStrategy
 ```
 
 The authoritative list of registered plugins lives in [`plugins.yaml`](plugins.yaml). Tools and the AVLite runtime consume that file directly.
