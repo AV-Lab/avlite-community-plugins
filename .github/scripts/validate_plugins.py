@@ -6,7 +6,7 @@ This script enforces the contribution guidelines described in the project README
 * `plugins.yaml` is valid YAML and has the expected top-level structure.
 * Every plugin entry has the required fields with the correct types.
 * `name` is unique, uses snake_case (no spaces).
-* `category` is one of the standard categories listed in the README.
+* `category` is a list containing one or more of the standard categories listed in the README.
 * `description` is short (<= 100 characters as recommended by the guidelines).
 * `repository` is a valid public Git URL (http(s) or git@).
 * `version` is either `latest` or looks like a (semver-ish) tag.
@@ -42,11 +42,9 @@ REQUIRED_FIELDS: dict[str, type] = {
     "repository": str,
     "version": str,
     "author": str,
-    "category": str,
+    "category": list,
 }
-OPTIONAL_FIELDS: dict[str, type] = {
-    "tags": list,
-}
+OPTIONAL_FIELDS: dict[str, type] = {}
 
 ALLOWED_CATEGORIES = {
     "PerceptionStrategy",
@@ -145,11 +143,6 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
         if field in entry and not isinstance(entry[field], expected):
             problems.error(f"{label}: field `{field}` must be a {expected.__name__}")
 
-    if "tags" in entry and isinstance(entry["tags"], list):
-        for i, tag in enumerate(entry["tags"]):
-            if not isinstance(tag, str) or not tag.strip():
-                problems.error(f"{label}: tags[{i}] must be a non-empty string")
-
     # Name format
     if isinstance(entry.get("name"), str):
         if " " in entry["name"]:
@@ -170,11 +163,17 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
 
     # Category
     cat = entry.get("category")
-    if isinstance(cat, str) and cat not in ALLOWED_CATEGORIES:
-        problems.error(
-            f"{label}: category `{cat}` is not one of "
-            f"{sorted(ALLOWED_CATEGORIES)}"
-        )
+    if isinstance(cat, list):
+        if not cat:
+            problems.error(f"{label}: `category` must contain at least one entry")
+        for i, item in enumerate(cat):
+            if not isinstance(item, str) or not item.strip():
+                problems.error(f"{label}: category[{i}] must be a non-empty string")
+            elif item not in ALLOWED_CATEGORIES:
+                problems.error(
+                    f"{label}: category[{i}] `{item}` is not one of "
+                    f"{sorted(ALLOWED_CATEGORIES)}"
+                )
 
     # Repository URL
     repo = entry.get("repository")
