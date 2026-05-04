@@ -32,23 +32,18 @@ Use one of the following standard categories for `category`. If your plugin does
 
 ```yaml
 plugins:
-  - name: ORBit_perception
-    description: ORBit perception plugin for AVLite
-    repository: https://github.com/AV-Lab/ORBit_perception
+  - name: my_perception_plugin
+    description: One-line summary of what the plugin does
+    repository: https://github.com/your-org/your-plugin-repo
     version: latest
-    author: AV-Lab
+    author: your-org
     category: PerceptionStrategy
     tags:
       - perception
       - computer-vision
 ```
 
-## Available Plugins
-
-| Name | Category | Description | Repository |
-| ---- | -------- | ----------- | ---------- |
-| ORBit_perception | PerceptionStrategy | ORBit perception plugin for AVLite | https://github.com/AV-Lab/ORBit_perception |
-| sample_avlite_plugin | PerceptionStrategy | Sample AVLite plugin demonstrating the plugin interface | https://github.com/AV-Lab/sample-avlite-plugin |
+The authoritative list of registered plugins lives in [`plugins.yaml`](plugins.yaml). Tools and the AVLite runtime consume that file directly.
 
 ## Contributing
 
@@ -56,9 +51,8 @@ To add or update a plugin in this registry:
 
 1. **Fork** this repository and create a feature branch.
 2. **Edit `plugins.yaml`** and append (or update) your plugin entry following the [schema](#plugin-registry-schema) above. Keep entries alphabetically sorted by `name` to minimize merge conflicts.
-3. **Update the [Available Plugins](#available-plugins) table** in this README so the human-readable listing stays in sync with `plugins.yaml`.
-4. **Verify your plugin repository** is public, has a clear `README`, a valid `LICENSE`, and a tagged release matching the `version` you list (unless you intentionally use `latest`).
-5. **Open a pull request** with a short description of the plugin and a link to its repository. A maintainer will review and merge.
+3. **Verify your plugin repository** is public, has a clear `README`, a valid `LICENSE`, and a tagged release matching the `version` you list (unless you intentionally use `latest`).
+4. **Open a pull request** with a short description of the plugin and a link to its repository. A maintainer will review and merge.
 
 ### Guidelines
 
@@ -69,7 +63,7 @@ To add or update a plugin in this registry:
 
 ### Removing or Renaming a Plugin
 
-If a plugin is no longer maintained or is being renamed, open a PR that updates or removes the corresponding entry in `plugins.yaml` and the [Available Plugins](#available-plugins) table, and explain the reason in the PR description.
+If a plugin is no longer maintained or is being renamed, open a PR that updates or removes the corresponding entry in `plugins.yaml`, and explain the reason in the PR description.
 
 ## License
 

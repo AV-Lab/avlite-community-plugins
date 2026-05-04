@@ -71,7 +71,6 @@ DESCRIPTION_MAX_LEN = 100
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PLUGINS_YAML = REPO_ROOT / "plugins.yaml"
-README_MD = REPO_ROOT / "README.md"
 
 
 class Problems:
@@ -217,77 +216,16 @@ def validate_collection(plugins: list[dict[str, Any]], problems: Problems) -> No
 
 
 def parse_readme_table(problems: Problems) -> list[dict[str, str]] | None:
-    if not README_MD.is_file():
-        problems.error("README.md not found")
-        return None
-    text = README_MD.read_text().splitlines()
-    try:
-        header_idx = next(
-            i for i, line in enumerate(text)
-            if line.strip().lower().startswith("## available plugins")
-        )
-    except StopIteration:
-        problems.error("README.md is missing the `## Available Plugins` section")
-        return None
-
-    rows: list[dict[str, str]] = []
-    # Skip to the table header row
-    i = header_idx + 1
-    while i < len(text) and not text[i].lstrip().startswith("|"):
-        i += 1
-    if i >= len(text):
-        problems.error("`Available Plugins` section has no markdown table")
-        return None
-    header = [c.strip() for c in text[i].strip().strip("|").split("|")]
-    i += 2  # skip the |---|---| separator
-    while i < len(text) and text[i].lstrip().startswith("|"):
-        cells = [c.strip() for c in text[i].strip().strip("|").split("|")]
-        if len(cells) == len(header):
-            rows.append(dict(zip(header, cells)))
-        i += 1
-    return rows
+    # Deprecated: the README no longer mirrors plugins.yaml in a table.
+    return None
 
 
 def validate_readme_in_sync(
     plugins: list[dict[str, Any]], problems: Problems
 ) -> None:
-    rows = parse_readme_table(problems)
-    if rows is None:
-        return
-
-    plugins_by_name = {
-        p["name"]: p for p in plugins if isinstance(p, dict) and isinstance(p.get("name"), str)
-    }
-    table_names = {row.get("Name", "").strip() for row in rows}
-
-    missing_in_table = set(plugins_by_name) - table_names
-    extra_in_table = table_names - set(plugins_by_name)
-    for n in sorted(missing_in_table):
-        problems.error(
-            f"README `Available Plugins` table is missing an entry for `{n}` "
-            "(present in plugins.yaml)"
-        )
-    for n in sorted(extra_in_table):
-        problems.error(
-            f"README `Available Plugins` table lists `{n}` "
-            "but it is not in plugins.yaml"
-        )
-
-    for row in rows:
-        name = row.get("Name", "").strip()
-        plugin = plugins_by_name.get(name)
-        if not plugin:
-            continue
-        for col, field in (("Category", "category"),
-                           ("Description", "description"),
-                           ("Repository", "repository")):
-            expected = str(plugin.get(field, "")).strip()
-            actual = row.get(col, "").strip()
-            if expected and actual != expected:
-                problems.error(
-                    f"README table for `{name}`: column `{col}` is "
-                    f"{actual!r} but plugins.yaml has {expected!r}"
-                )
+    # Deprecated: README no longer lists individual plugins. Kept as a no-op
+    # to preserve the public function surface.
+    return
 
 
 # ---------------------------------------------------------------------------
@@ -406,7 +344,6 @@ def main() -> int:
         for i, entry in enumerate(plugins):
             validate_entry(i, entry, problems)
         validate_collection(plugins, problems)
-        validate_readme_in_sync(plugins, problems)
         if args.check_remote:
             validate_remote(plugins, problems)
 
