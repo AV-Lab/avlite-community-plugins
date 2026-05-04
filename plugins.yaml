@@ -18,6 +18,3 @@ plugins:
     version: latest
     author: AV-Lab
     category: perception
-    tags:
-      - sample
-      - example
