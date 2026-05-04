@@ -48,6 +48,7 @@ plugins:
 | Name | Category | Description | Repository |
 | ---- | -------- | ----------- | ---------- |
 | ORBit_perception | perception | ORBit perception plugin for AVLite | https://github.com/AV-Lab/ORBit_perception |
+| sample_avlite_plugin | perception | Sample AVLite plugin demonstrating the plugin interface | https://github.com/AV-Lab/sample-avlite-plugin |
 
 ## Contributing
 
