@@ -19,11 +19,11 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 Use one or more of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
-- `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
-- `LocalizationStrategy` — pose estimation, SLAM-based localization
-- `MappingStrategy` — map building, SLAM mapping, environment representation
-- `PlanningStrategy` — global/local planners, behavior planning, decision-making
-- `ControlStrategy` — vehicle controllers, actuation
+- `Perception` — sensing, detection, tracking, segmentation, fusion
+- `Localization` — pose estimation, SLAM-based localization
+- `Mapping` — map building, SLAM mapping, environment representation
+- `Planning` — global/local planners, behavior planning, decision-making
+- `Control` — vehicle controllers, actuation
 - `Executer` — runtime execution, scheduling, orchestration
 - `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 
@@ -37,7 +37,7 @@ plugins:
     version: latest
     author: your-org
     category:
-      - PerceptionStrategy
+      - Perception
 ```
 
 The authoritative list of registered plugins lives in [`plugins.yaml`](plugins.yaml). Tools and the AVLite runtime consume that file directly.

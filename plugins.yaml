@@ -9,4 +9,4 @@ plugins:
     version: latest
     author: AV-Lab
     category:
-      - PerceptionStrategy
+      - Perception

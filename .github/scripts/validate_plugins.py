@@ -47,11 +47,11 @@ REQUIRED_FIELDS: dict[str, type] = {
 OPTIONAL_FIELDS: dict[str, type] = {}
 
 ALLOWED_CATEGORIES = {
-    "PerceptionStrategy",
-    "LocalizationStrategy",
-    "MappingStrategy",
-    "PlanningStrategy",
-    "ControlStrategy",
+    "Perception",
+    "Localization",
+    "Mapping",
+    "Planning",
+    "Control",
     "Executer",
     "WorldBridge",
 }
