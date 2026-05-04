@@ -20,13 +20,13 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 Use one of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
-- `perception` — sensing, detection, tracking, segmentation, fusion
-- `planning` — global/local planners, behavior planning, decision-making
-- `control` — vehicle controllers, actuation
-- `localization` — mapping, SLAM, pose estimation
-- `simulation` — simulators, scenario generation, synthetic data
-- `visualization` — UIs, dashboards, debug tooling
-- `utility` — shared libraries, helpers, integrations
+- `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
+- `LocalizationStrategy` — pose estimation, SLAM-based localization
+- `MappingStrategy` — map building, SLAM mapping, environment representation
+- `PlanningStrategy` — global/local planners, behavior planning, decision-making
+- `ControlStrategy` — vehicle controllers, actuation
+- `Executer` — runtime execution, scheduling, orchestration
+- `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 
 ### Example Entry
 
@@ -37,7 +37,7 @@ plugins:
     repository: https://github.com/AV-Lab/ORBit_perception
     version: latest
     author: AV-Lab
-    category: perception
+    category: PerceptionStrategy
     tags:
       - perception
       - computer-vision
@@ -47,8 +47,8 @@ plugins:
 
 | Name | Category | Description | Repository |
 | ---- | -------- | ----------- | ---------- |
-| ORBit_perception | perception | ORBit perception plugin for AVLite | https://github.com/AV-Lab/ORBit_perception |
-| sample_avlite_plugin | perception | Sample AVLite plugin demonstrating the plugin interface | https://github.com/AV-Lab/sample-avlite-plugin |
+| ORBit_perception | PerceptionStrategy | ORBit perception plugin for AVLite | https://github.com/AV-Lab/ORBit_perception |
+| sample_avlite_plugin | PerceptionStrategy | Sample AVLite plugin demonstrating the plugin interface | https://github.com/AV-Lab/sample-avlite-plugin |
 
 ## Contributing
 

@@ -49,13 +49,13 @@ OPTIONAL_FIELDS: dict[str, type] = {
 }
 
 ALLOWED_CATEGORIES = {
-    "perception",
-    "planning",
-    "control",
-    "localization",
-    "simulation",
-    "visualization",
-    "utility",
+    "PerceptionStrategy",
+    "LocalizationStrategy",
+    "MappingStrategy",
+    "PlanningStrategy",
+    "ControlStrategy",
+    "Executer",
+    "WorldBridge",
 }
 
 NAME_RE = re.compile(r"^[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*$")
