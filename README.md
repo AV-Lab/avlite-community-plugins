@@ -20,6 +20,7 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 Use one or more of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
 - `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
+- `PredictionStrategy` — trajectory and motion forecasting sub-strategies
 - `LocalizationStrategy` — pose estimation, SLAM-based localization
 - `MappingStrategy` — map building, SLAM mapping, environment representation
 - `PlanningStrategy` — global/local planners, behavior planning, decision-making

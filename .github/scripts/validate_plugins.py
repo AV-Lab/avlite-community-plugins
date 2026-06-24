@@ -48,6 +48,7 @@ OPTIONAL_FIELDS: dict[str, type] = {}
 
 ALLOWED_CATEGORIES = {
     "PerceptionStrategy",
+    "PredictionStrategy",
     "LocalizationStrategy",
     "MappingStrategy",
     "PlanningStrategy",

@@ -3,6 +3,14 @@
 # Each plugin entry should follow the structure below
 
 plugins:
+  - name: basic_predictor
+    description: LSTM trajectory prediction plugin for AVLite
+    repository: https://github.com/Murdism/basic_predictor
+    version: latest
+    author: Murdism
+    category:
+      - PredictionStrategy
+
   - name: sample_avlite_plugin
     description: Sample AVLite plugin demonstrating the plugin interface
     repository: https://github.com/AV-Lab/sample-avlite-plugin
