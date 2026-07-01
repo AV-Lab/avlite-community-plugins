@@ -11,6 +11,14 @@ plugins:
     category:
       - PredictionStrategy
 
+  - name: World Bridge Carla
+    description: A plugin that bridges Carla world to AVLite
+    repository: https://github.com/AV-Lab/avlite-bridge-carla
+    version: latest
+    author: AV-Lab
+    category:
+      - WorldBridge
+
   - name: sample_avlite_plugin
     description: Sample AVLite plugin demonstrating the plugin interface
     repository: https://github.com/AV-Lab/sample-avlite-plugin
