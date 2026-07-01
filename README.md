@@ -8,7 +8,7 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 | Field         | Type            | Required | Description |
 | ------------- | --------------- | :------: | ----------- |
-| `name`        | string          | yes      | Unique plugin identifier. Use `snake_case` and avoid spaces. Must be unique within `plugins.yaml`. |
+| `name`        | string          | yes      | Unique plugin identifier. Official AV-Lab plugins use `avlite-*` kebab-case (e.g. `avlite-bridge-carla`). Community plugins may use `snake_case`. Must be unique within `plugins.yaml`. |
 | `description` | string          | yes      | One-line summary of what the plugin does. |
 | `repository`  | URL (string)    | yes      | Public Git URL where the plugin source lives (typically a GitHub repository). |
 | `version`     | string          | yes      | Plugin version. Use a semver tag (e.g. `1.2.0`) or `latest` to track the default branch. |
@@ -28,7 +28,22 @@ Use one or more of the following standard categories for `category`. If your plu
 - `Executer` — runtime execution, scheduling, orchestration
 - `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 
-### Example Entry
+### Example entries
+
+**Official AV-Lab plugin (kebab-case):**
+
+```yaml
+plugins:
+  - name: avlite-bridge-carla
+    description: CARLA simulator world bridge for AVLite
+    repository: https://github.com/AV-Lab/avlite-bridge-carla
+    version: latest
+    author: AV-Lab
+    category:
+      - WorldBridge
+```
+
+**Community plugin (snake_case):**
 
 ```yaml
 plugins:
@@ -41,7 +56,17 @@ plugins:
       - PerceptionStrategy
 ```
 
-The authoritative list of registered plugins lives in [`plugins.yaml`](plugins.yaml). Tools and the AVLite runtime consume that file directly.
+### Registered official plugins
+
+| Name | Repository |
+|------|------------|
+| `avlite-bridge-carla` | [AV-Lab/avlite-bridge-carla](https://github.com/AV-Lab/avlite-bridge-carla) |
+| `avlite-bridge-gazebo` | [AV-Lab/avlite-bridge-gazebo](https://github.com/AV-Lab/avlite-bridge-gazebo) |
+| `avlite-bridge-ROS2` | [AV-Lab/avlite-bridge-ROS2](https://github.com/AV-Lab/avlite-bridge-ROS2) |
+| `avlite-controller-joystick` | [AV-Lab/avlite-controller-joystick](https://github.com/AV-Lab/avlite-controller-joystick) |
+| `avlite-executer-ROS2` | [AV-Lab/avlite-executer-ROS2](https://github.com/AV-Lab/avlite-executer-ROS2) |
+
+See [`plugins.yaml`](plugins.yaml) for the full list (including community samples).
 
 ## Contributing
 

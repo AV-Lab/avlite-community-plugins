@@ -1,8 +1,42 @@
 # AVLite Community Plugins Registry
-# This file serves as a registry for AVLite community plugins
-# Each plugin entry should follow the structure below
+# Each entry points to an external Git repository (see README.md for schema).
 
 plugins:
+  - name: avlite-bridge-carla
+    description: CARLA simulator world bridge for AVLite
+    repository: https://github.com/AV-Lab/avlite-bridge-carla
+    version: latest
+    author: AV-Lab
+    category:
+      - WorldBridge
+  - name: avlite-bridge-gazebo
+    description: Gazebo Ignition world bridge for AVLite
+    repository: https://github.com/AV-Lab/avlite-bridge-gazebo
+    version: latest
+    author: AV-Lab
+    category:
+      - WorldBridge
+  - name: avlite-bridge-ROS2
+    description: ROS 2 world bridge for external Autoware or ROS stacks
+    repository: https://github.com/AV-Lab/avlite-bridge-ROS2
+    version: latest
+    author: AV-Lab
+    category:
+      - WorldBridge
+  - name: avlite-controller-joystick
+    description: Xbox-style gamepad controller for AVLite
+    repository: https://github.com/AV-Lab/avlite-controller-joystick
+    version: latest
+    author: AV-Lab
+    category:
+      - ControlStrategy
+  - name: avlite-executer-ROS2
+    description: Multiprocess ROS 2 executer with Autoware-compatible topics
+    repository: https://github.com/AV-Lab/avlite-executer-ROS2
+    version: latest
+    author: AV-Lab
+    category:
+      - Executer
   - name: basic_predictor
     description: LSTM trajectory prediction plugin for AVLite
     repository: https://github.com/Murdism/basic_predictor
@@ -10,19 +44,3 @@ plugins:
     author: Murdism
     category:
       - PredictionStrategy
-
-  - name: World Bridge Carla
-    description: A plugin that bridges Carla world to AVLite
-    repository: https://github.com/AV-Lab/avlite-bridge-carla
-    version: latest
-    author: AV-Lab
-    category:
-      - WorldBridge
-
-  - name: sample_avlite_plugin
-    description: Sample AVLite plugin demonstrating the plugin interface
-    repository: https://github.com/AV-Lab/sample-avlite-plugin
-    version: latest
-    author: AV-Lab
-    category:
-      - PerceptionStrategy
