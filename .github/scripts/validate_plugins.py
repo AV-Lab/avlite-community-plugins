@@ -5,8 +5,9 @@ This script enforces the contribution guidelines described in the project README
 
 * `plugins.yaml` is valid YAML and has the expected top-level structure.
 * Every plugin entry has the required fields with the correct types.
-* `name` is unique, uses snake_case (no spaces).
+* `name` is unique, uses kebab-case or snake_case (no spaces).
 * `category` is a list containing one or more of the standard categories listed in the README.
+* Optional `min_avlite_version` / `dependency_notes` have the correct types when present.
 * `description` is short (<= 100 characters as recommended by the guidelines).
 * `repository` is a valid public Git URL (http(s) or git@).
 * `version` is either `latest` or looks like a (semver-ish) tag.
@@ -44,24 +45,31 @@ REQUIRED_FIELDS: dict[str, type] = {
     "author": str,
     "category": list,
 }
-OPTIONAL_FIELDS: dict[str, type] = {}
+OPTIONAL_FIELDS: dict[str, type] = {
+    "min_avlite_version": str,
+    "dependency_notes": str,
+}
 
 ALLOWED_CATEGORIES = {
     "PerceptionStrategy",
+    "DetectionStrategy",
+    "TrackingStrategy",
     "PredictionStrategy",
     "LocalizationStrategy",
     "MappingStrategy",
-    "PlanningStrategy",
+    "GlobalPlannerStrategy",
+    "LocalPlanningStrategy",
     "ControlStrategy",
-    "Executer",
+    "ExecutionStrategy",
     "WorldBridge",
+    "AppStrategy",
 }
 
-NAME_RE = re.compile(r"^[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*$")
-# The README asks for snake_case names with no spaces. Existing entries
-# (e.g. `ORBit_perception`) mix cases, so we accept letters and digits
-# separated by underscores rather than enforcing strict lowercase.
+# Official plugins use kebab-case (`avlite-bridge-carla`); community plugins
+# often use snake_case. Accept letters/digits separated by hyphens or underscores.
+NAME_RE = re.compile(r"^[A-Za-z0-9]+(?:[-_][A-Za-z0-9]+)*$")
 VERSION_RE = re.compile(r"^(latest|v?\d+\.\d+(?:\.\d+)?(?:[-+][0-9A-Za-z.-]+)?)$")
+MIN_AVLITE_VERSION_RE = re.compile(r"^v?\d+\.\d+(?:\.\d+)?(?:[-+][0-9A-Za-z.-]+)?$")
 URL_RE = re.compile(r"^(https?://|git@)[\w.@:/\-~]+?(?:\.git)?/?$")
 GITHUB_URL_RE = re.compile(
     r"^https?://github\.com/(?P<owner>[\w.\-]+)/(?P<repo>[\w.\-]+?)(?:\.git)?/?$"
@@ -150,8 +158,8 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
             problems.error(f"{label}: `name` must not contain spaces")
         elif not NAME_RE.match(entry["name"]):
             problems.error(
-                f"{label}: `name` must be snake_case "
-                "(letters/digits separated by underscores)"
+                f"{label}: `name` must be kebab-case or snake_case "
+                "(letters/digits separated by hyphens or underscores)"
             )
 
     # Description length
@@ -187,6 +195,14 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
         problems.warn(
             f"{label}: `version` {version!r} is not `latest` and does not look "
             "like a semver tag (e.g. `1.2.0` or `v1.2.0`)"
+        )
+
+    # Optional min_avlite_version format (empty string allowed)
+    min_ver = entry.get("min_avlite_version")
+    if isinstance(min_ver, str) and min_ver.strip() and not MIN_AVLITE_VERSION_RE.match(min_ver):
+        problems.warn(
+            f"{label}: `min_avlite_version` {min_ver!r} does not look like a "
+            "semver version (e.g. `0.4.5` or `v0.4.5`)"
         )
 
 

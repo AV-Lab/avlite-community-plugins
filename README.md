@@ -6,27 +6,33 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 `plugins.yaml` has a single top-level key, `plugins`, whose value is a list of plugin entries. Each entry uses the following fields:
 
-| Field         | Type            | Required | Description |
-| ------------- | --------------- | :------: | ----------- |
-| `name`        | string          | yes      | Unique plugin identifier. Official AV-Lab plugins use `avlite-*` kebab-case (e.g. `avlite-bridge-carla`). Community plugins may use `snake_case`. Must be unique within `plugins.yaml`. |
-| `description` | string          | yes      | One-line summary of what the plugin does. |
-| `repository`  | URL (string)    | yes      | Public Git URL where the plugin source lives (typically a GitHub repository). |
-| `version`     | string          | yes      | Plugin version. Use a semver tag (e.g. `1.2.0`) or `latest` to track the default branch. |
-| `author`      | string          | yes      | Author name, GitHub user, or organization that maintains the plugin. |
-| `category`    | list of strings | yes      | One or more categories that describe the plugin. See [Categories](#categories) below. |
+| Field                 | Type            | Required | Description |
+| --------------------- | --------------- | :------: | ----------- |
+| `name`                | string          | yes      | Unique plugin identifier. Official AV-Lab plugins use `avlite-*` kebab-case (e.g. `avlite-bridge-carla`). Community plugins may use `snake_case`. Must be unique within `plugins.yaml`. |
+| `description`         | string          | yes      | One-line summary of what the plugin does. |
+| `repository`          | URL (string)    | yes      | Public Git URL where the plugin source lives (typically a GitHub repository). |
+| `version`             | string          | yes      | Plugin version. Use a semver tag (e.g. `1.2.0`) or `latest` to track the default branch. |
+| `author`              | string          | yes      | Author name, GitHub user, or organization that maintains the plugin. |
+| `category`            | list of strings | yes      | One or more categories that describe the plugin. See [Categories](#categories) below. |
+| `min_avlite_version`  | string          | no       | Minimum AVLite version required (semver, e.g. `0.4.5`). Omit or leave empty if unknown. |
+| `dependency_notes`    | string          | no       | Extra setup beyond the plugin's `requirements.txt` (system packages, ROS, simulators, etc.). Use `""` when pip-only. |
 
 ### Categories
 
 Use one or more of the following standard categories for `category`. If your plugin doesn't fit, open an issue to propose a new one rather than inventing one ad hoc:
 
-- `PerceptionStrategy` — sensing, detection, tracking, segmentation, fusion
-- `PredictionStrategy` — trajectory and motion forecasting sub-strategies
+- `PerceptionStrategy` — monolithic perception (detect + track + predict in one class)
+- `DetectionStrategy` — PerceptionPipeline detect stage
+- `TrackingStrategy` — PerceptionPipeline track stage
+- `PredictionStrategy` — PerceptionPipeline predict stage
 - `LocalizationStrategy` — pose estimation, SLAM-based localization
 - `MappingStrategy` — map building, SLAM mapping, environment representation
-- `PlanningStrategy` — global/local planners, behavior planning, decision-making
+- `GlobalPlannerStrategy` — global planners
+- `LocalPlanningStrategy` — local planners (including behavioral, path, velocity, and lattice stages)
 - `ControlStrategy` — vehicle controllers, actuation
-- `Executer` — runtime execution, scheduling, orchestration
+- `ExecutionStrategy` — runtime executers, scheduling, orchestration
 - `WorldBridge` — bridges to simulators, middleware, or external world interfaces
+- `AppStrategy` — CLI/GUI app entry plugins
 
 ### Example entries
 
@@ -41,6 +47,8 @@ plugins:
     author: AV-Lab
     category:
       - WorldBridge
+    min_avlite_version: "0.4.5"
+    dependency_notes: "Running CARLA server required; start CARLA before AVLite."
 ```
 
 **Community plugin (snake_case):**
@@ -54,6 +62,8 @@ plugins:
     author: your-org
     category:
       - PerceptionStrategy
+    min_avlite_version: "0.4.5"
+    dependency_notes: ""
 ```
 
 ### Registered official plugins
@@ -83,6 +93,7 @@ To add or update a plugin in this registry:
 - Plugins must be open source under an OSI-approved license.
 - Keep `description` short (under ~100 characters); put longer documentation in the plugin's own repository.
 - Pin `version` to a specific tag for stability; reserve `latest` for actively developed plugins.
+- Prefer setting `min_avlite_version` when you know the floor; use `dependency_notes` for anything users must install or source beyond `requirements.txt`.
 
 ### Removing or Renaming a Plugin
 
