@@ -36,7 +36,7 @@ plugins:
     author: AV-Lab
     category:
       - ControlStrategy
-    min_avlite_version: "0.4.5"
+    min_avlite_version: "0.4.6"
     dependency_notes: "Connect a gamepad before starting AVLite; Linux evtest/joystick tools recommended."
   - name: avlite-executer-ROS2
     description: Multiprocess ROS 2 executer with Autoware-compatible topics
