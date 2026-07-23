@@ -36,7 +36,7 @@ plugins:
     author: AV-Lab
     category:
       - ControlStrategy
-    min_avlite_version: "0.4.6"
+    min_avlite_version: "0.4.5"
     dependency_notes: "Connect a gamepad before starting AVLite; Linux evtest/joystick tools recommended."
   - name: avlite-executer-ROS2
     description: Multiprocess ROS 2 executer with Autoware-compatible topics
@@ -45,7 +45,7 @@ plugins:
     author: AV-Lab
     category:
       - ExecutionStrategy
-    min_avlite_version: "0.4.5"
+    min_avlite_version: "0.5.0"
     dependency_notes: "ROS 2 (Humble+); source/load ROS 2 before running AVLite; optional Autoware messages (autoware_auto_msgs)."
   - name: basic_predictor
     description: LSTM trajectory prediction plugin for AVLite
