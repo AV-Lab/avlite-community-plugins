@@ -31,6 +31,7 @@ Use one or more of the following standard categories for `category`. If your plu
 - `LocalPlanningStrategy` — local planners (including behavioral, path, velocity, and lattice stages)
 - `ControlStrategy` — vehicle controllers, actuation
 - `ExecutionStrategy` — runtime executers, scheduling, orchestration
+- `TaskStrategy` — stack-extension execution tasks (every cycle / interval / ON_EVENT)
 - `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 - `AppStrategy` — CLI/GUI app entry plugins
 
