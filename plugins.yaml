@@ -3,6 +3,7 @@
 
 plugins:
   - name: avlite-bridge-carla
+    display_name: AVLite CARLA Bridge
     description: CARLA simulator world bridge for AVLite
     repository: https://github.com/AV-Lab/avlite-bridge-carla
     version: latest
@@ -11,7 +12,9 @@ plugins:
       - WorldBridge
     min_avlite_version: "0.4.5"
     dependency_notes: "Running CARLA server required; start CARLA before AVLite."
+    site_url: ""
   - name: avlite-bridge-gazebo
+    display_name: AVLite Gazebo Bridge
     description: Gazebo Ignition world bridge for AVLite
     repository: https://github.com/AV-Lab/avlite-bridge-gazebo
     version: latest
@@ -20,7 +23,9 @@ plugins:
       - WorldBridge
     min_avlite_version: "0.4.5"
     dependency_notes: "ROS 2 and Gazebo Ignition; source ROS 2 before running AVLite; Gazebo/bridge launch must be up first."
+    site_url: ""
   - name: avlite-bridge-ROS2
+    display_name: AVLite ROS2 Bridge
     description: ROS 2 world bridge for external Autoware or ROS stacks
     repository: https://github.com/AV-Lab/avlite-bridge-ROS2
     version: latest
@@ -29,7 +34,9 @@ plugins:
       - WorldBridge
     min_avlite_version: "0.5.3"
     dependency_notes: "ROS 2 (Humble+); source/load ROS 2 before running AVLite; optional Autoware / autoware_auto_msgs."
+    site_url: ""
   - name: avlite-controller-joystick
+    display_name: AVLite Joystick Controller
     description: Xbox-style gamepad controller for AVLite
     repository: https://github.com/AV-Lab/avlite-controller-joystick
     version: latest
@@ -38,7 +45,9 @@ plugins:
       - ControlStrategy
     min_avlite_version: "0.4.5"
     dependency_notes: "Connect a gamepad before starting AVLite; Linux evtest/joystick tools recommended."
+    site_url: ""
   - name: avlite-executer-ROS2
+    display_name: AVLite ROS2 Executer
     description: Multiprocess ROS 2 executer with Autoware-compatible topics
     repository: https://github.com/AV-Lab/avlite-executer-ROS2
     version: latest
@@ -47,7 +56,9 @@ plugins:
       - ExecutionStrategy
     min_avlite_version: "0.5.3"
     dependency_notes: "ROS 2 (Humble+); source/load ROS 2 before running AVLite; optional Autoware messages (autoware_auto_msgs)."
+    site_url: "https://avlab.io/avlite-executer-ROS2/"
   - name: basic_predictor
+    display_name: Basic Predictor
     description: LSTM trajectory prediction plugin for AVLite
     repository: https://github.com/Murdism/basic_predictor
     version: latest
@@ -56,3 +67,4 @@ plugins:
       - PredictionStrategy
     min_avlite_version: "0.4.5"
     dependency_notes: ""
+    site_url: ""

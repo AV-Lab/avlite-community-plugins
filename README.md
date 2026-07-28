@@ -8,7 +8,8 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 
 | Field                 | Type            | Required | Description |
 | --------------------- | --------------- | :------: | ----------- |
-| `name`                | string          | yes      | Unique plugin identifier. Official AV-Lab plugins use `avlite-*` kebab-case (e.g. `avlite-bridge-carla`). Community plugins may use `snake_case`. Must be unique within `plugins.yaml`. |
+| `name`                | string          | yes      | Unique plugin identifier, also used as the install folder name. Official AV-Lab plugins use `avlite-*` kebab-case (e.g. `avlite-bridge-carla`). Community plugins may use `snake_case`. Must be unique within `plugins.yaml`. |
+| `display_name`        | string          | no       | Human-readable plugin name shown in the AVLite Plugins window and the plugin store (e.g. `AVLite CARLA Bridge`). Use spaces and normal capitalization; keep acronyms uppercase. Omit it to fall back to `name`. |
 | `description`         | string          | yes      | One-line summary of what the plugin does. |
 | `repository`          | URL (string)    | yes      | Public Git URL where the plugin source lives (typically a GitHub repository). |
 | `version`             | string          | yes      | Plugin version. Use a semver tag (e.g. `1.2.0`) or `latest` to track the default branch. |
@@ -16,6 +17,7 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 | `category`            | list of strings | yes      | One or more categories that describe the plugin. See [Categories](#categories) below. |
 | `min_avlite_version`  | string          | no       | Minimum AVLite version required (semver, e.g. `0.4.5`). Omit or leave empty if unknown. |
 | `dependency_notes`    | string          | no       | Extra setup beyond the plugin's `requirements.txt` (system packages, ROS, simulators, etc.). Use `""` when pip-only. |
+| `site_url`            | URL (string)    | no       | Project website or documentation page for the plugin (e.g. `https://example.org/my-plugin`). Omit or use `""` when the repository is the only home. |
 
 ### Categories
 
@@ -42,6 +44,7 @@ Use one or more of the following standard categories for `category`. If your plu
 ```yaml
 plugins:
   - name: avlite-bridge-carla
+    display_name: AVLite CARLA Bridge
     description: CARLA simulator world bridge for AVLite
     repository: https://github.com/AV-Lab/avlite-bridge-carla
     version: latest
@@ -50,6 +53,7 @@ plugins:
       - WorldBridge
     min_avlite_version: "0.4.5"
     dependency_notes: "Running CARLA server required; start CARLA before AVLite."
+    site_url: ""
 ```
 
 **Community plugin (snake_case):**
@@ -57,6 +61,7 @@ plugins:
 ```yaml
 plugins:
   - name: my_perception_plugin
+    display_name: My Perception Plugin
     description: One-line summary of what the plugin does
     repository: https://github.com/your-org/your-plugin-repo
     version: latest
@@ -65,6 +70,7 @@ plugins:
       - PerceptionStrategy
     min_avlite_version: "0.4.5"
     dependency_notes: ""
+    site_url: "https://example.org/my-perception-plugin"
 ```
 
 ### Registered official plugins
@@ -95,6 +101,8 @@ To add or update a plugin in this registry:
 - Keep `description` short (under ~100 characters); put longer documentation in the plugin's own repository.
 - Pin `version` to a specific tag for stability; reserve `latest` for actively developed plugins.
 - Prefer setting `min_avlite_version` when you know the floor; use `dependency_notes` for anything users must install or source beyond `requirements.txt`.
+- `name` is an identifier, not a title: AVLite uses it for the install folder, the `avlite.plugins.<name>` import path, the plugin settings file, and profile entries, so it must stay free of spaces and must not change once published. Set `display_name` when the identifier reads poorly to users.
+- Use `site_url` for a project website or documentation page — not a second copy of `repository`.
 
 ### Removing or Renaming a Plugin
 

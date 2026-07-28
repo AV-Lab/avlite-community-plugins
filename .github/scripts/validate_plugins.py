@@ -7,7 +7,8 @@ This script enforces the contribution guidelines described in the project README
 * Every plugin entry has the required fields with the correct types.
 * `name` is unique, uses kebab-case or snake_case (no spaces).
 * `category` is a list containing one or more of the standard categories listed in the README.
-* Optional `min_avlite_version` / `dependency_notes` have the correct types when present.
+* Optional `display_name` / `min_avlite_version` / `dependency_notes` / `site_url` have the
+  correct types when present, and a non-empty `site_url` is a valid URL.
 * `description` is short (<= 100 characters as recommended by the guidelines).
 * `repository` is a valid public Git URL (http(s) or git@).
 * `version` is either `latest` or looks like a (semver-ish) tag.
@@ -46,8 +47,10 @@ REQUIRED_FIELDS: dict[str, type] = {
     "category": list,
 }
 OPTIONAL_FIELDS: dict[str, type] = {
+    "display_name": str,
     "min_avlite_version": str,
     "dependency_notes": str,
+    "site_url": str,
 }
 
 ALLOWED_CATEGORIES = {
@@ -204,6 +207,11 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
             f"{label}: `min_avlite_version` {min_ver!r} does not look like a "
             "semver version (e.g. `0.4.5` or `v0.4.5`)"
         )
+
+    # Optional site_url format (empty string allowed)
+    site = entry.get("site_url")
+    if isinstance(site, str) and site.strip() and not URL_RE.match(site):
+        problems.error(f"{label}: `site_url` is not a valid URL: {site!r}")
 
 
 def validate_collection(plugins: list[dict[str, Any]], problems: Problems) -> None:
