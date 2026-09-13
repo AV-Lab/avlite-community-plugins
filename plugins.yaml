@@ -10,7 +10,7 @@ plugins:
     author: AV-Lab
     category:
       - WorldBridge
-    min_avlite_version: "0.4.5"
+    min_avlite_version: "0.6.0"
     dependency_notes: "Running CARLA server required; start CARLA before AVLite."
     site_url: ""
   - name: avlite-bridge-gazebo
