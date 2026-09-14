@@ -7,8 +7,9 @@ This script enforces the contribution guidelines described in the project README
 * Every plugin entry has the required fields with the correct types.
 * `name` is unique, uses kebab-case or snake_case (no spaces).
 * `category` is a list containing one or more of the standard categories listed in the README.
-* Optional `display_name` / `min_avlite_version` / `dependency_notes` / `site_url` have the
-  correct types when present, and a non-empty `site_url` is a valid URL.
+* Optional `display_name` / `min_avlite_version` / `require_ros` / `min_ros_version` /
+  `max_ros_version` / `dependency_notes` / `site_url` have the correct types when present,
+  and a non-empty `site_url` is a valid URL.
 * `description` is short (<= 100 characters as recommended by the guidelines).
 * `repository` is a valid public Git URL (http(s) or git@).
 * `version` is either `latest` or looks like a (semver-ish) tag.
@@ -49,8 +50,21 @@ REQUIRED_FIELDS: dict[str, type] = {
 OPTIONAL_FIELDS: dict[str, type] = {
     "display_name": str,
     "min_avlite_version": str,
+    "require_ros": bool,
+    "min_ros_version": str,
+    "max_ros_version": str,
     "dependency_notes": str,
     "site_url": str,
+}
+
+ROS_DISTROS = {
+    "foxy",
+    "galactic",
+    "humble",
+    "iron",
+    "jazzy",
+    "kilted",
+    "rolling",
 }
 
 ALLOWED_CATEGORIES = {
@@ -207,6 +221,24 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
             f"{label}: `min_avlite_version` {min_ver!r} does not look like a "
             "semver version (e.g. `0.4.5` or `v0.4.5`)"
         )
+
+    require_ros = entry.get("require_ros", False)
+    min_ros = entry.get("min_ros_version")
+    max_ros = entry.get("max_ros_version")
+    if require_ros is False and (
+        (isinstance(min_ros, str) and min_ros.strip())
+        or (isinstance(max_ros, str) and max_ros.strip())
+    ):
+        problems.warn(f"{label}: `min_ros_version` / `max_ros_version` are ignored unless `require_ros` is true")
+    if require_ros is True and not (isinstance(min_ros, str) and min_ros.strip()):
+        problems.warn(f"{label}: `require_ros` is true but `min_ros_version` is missing")
+    for field in ("min_ros_version", "max_ros_version"):
+        value = entry.get(field)
+        if isinstance(value, str) and value.strip() and value.strip().lower() not in ROS_DISTROS:
+            problems.error(
+                f"{label}: `{field}` {value!r} is not a known ROS 2 distro "
+                f"({', '.join(sorted(ROS_DISTROS))})"
+            )
 
     # Optional site_url format (empty string allowed)
     site = entry.get("site_url")

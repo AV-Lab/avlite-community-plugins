@@ -16,6 +16,9 @@ A central registry of community-maintained plugins for [AVLite](https://github.c
 | `author`              | string          | yes      | Author name, GitHub user, or organization that maintains the plugin. |
 | `category`            | list of strings | yes      | One or more categories that describe the plugin. See [Categories](#categories) below. |
 | `min_avlite_version`  | string          | no       | Minimum AVLite version required (semver, e.g. `0.4.5`). Omit or leave empty if unknown. |
+| `require_ros`         | bool            | no       | `true` if the plugin needs ROS 2 at runtime. Omit or `false` if it does not. |
+| `min_ros_version`     | string          | no       | Oldest ROS 2 distro name this plugin supports (e.g. `humble`). Ignored unless `require_ros` is `true`. Omit for any installed ROS 2. |
+| `max_ros_version`     | string          | no       | Newest ROS 2 distro name this plugin supports (e.g. `jazzy`). Omit for no upper bound. |
 | `dependency_notes`    | string          | no       | Extra setup beyond the plugin's `requirements.txt` (system packages, ROS, simulators, etc.). Use `""` when pip-only. |
 | `site_url`            | URL (string)    | no       | Project website or documentation page for the plugin (e.g. `https://example.org/my-plugin`). Omit or use `""` when the repository is the only home. |
 
@@ -26,9 +29,9 @@ Use one or more of the following standard categories for `category`. If your plu
 - `PerceptionStrategy` — monolithic perception (detect + track + predict in one class)
 - `DetectionStrategy` — PerceptionPipeline detect stage
 - `TrackingStrategy` — PerceptionPipeline track stage
-- `PredictionStrategy` — PerceptionPipeline predict stage
+- `PredictionStrategy` — PerceptionPipeline predict stage; advertise exactly one typed forecast cap (`PREDICTION_TRAJECTORY`, `PREDICTION_GP`, `PREDICTION_GMM`, or `PREDICTION_OCCUPANCY`). There is no generic `PREDICTION`. Built-in lattice/velocity planners only soft-use `PREDICTION_TRAJECTORY` (`SingleTrajectory`).
 - `LocalizationStrategy` — pose estimation, SLAM-based localization
-- `MappingStrategy` — map building, SLAM mapping, environment representation
+- `MappingStrategy` — map building, SLAM mapping, environment representation; advertise `MAP_HD`, `MAP_RACE_TRACK`, and/or `MAP_OCCUPANCY` to match the map type you write.
 - `GlobalPlannerStrategy` — global planners
 - `LocalPlanningStrategy` — local planners (including behavioral, path, velocity, and lattice stages)
 - `ControlStrategy` — vehicle controllers, actuation
@@ -69,6 +72,9 @@ plugins:
     category:
       - PerceptionStrategy
     min_avlite_version: "0.4.5"
+    require_ros: false
+    min_ros_version: ""
+    max_ros_version: ""
     dependency_notes: ""
     site_url: "https://example.org/my-perception-plugin"
 ```
@@ -100,7 +106,8 @@ To add or update a plugin in this registry:
 - Plugins must be open source under an OSI-approved license.
 - Keep `description` short (under ~100 characters); put longer documentation in the plugin's own repository.
 - Pin `version` to a specific tag for stability; reserve `latest` for actively developed plugins.
-- Prefer setting `min_avlite_version` when you know the floor; use `dependency_notes` for anything users must install or source beyond `requirements.txt`.
+- Prefer setting `min_avlite_version` when you know the floor. Set `require_ros: true` and `min_ros_version` (optionally `max_ros_version`) when the plugin needs ROS 2. Use `dependency_notes` for anything else users must install or source beyond `requirements.txt`.
+- WorldBridge plugins may include `launch.sh` at the repository root. AVLite warns and can run it in the background to start a vehicle platform or simulator (for example CARLA). The process keeps running after the stack stops.
 - `name` is an identifier, not a title: AVLite uses it for the install folder, the `avlite.plugins.<name>` import path, the plugin settings file, and profile entries, so it must stay free of spaces and must not change once published. Set `display_name` when the identifier reads poorly to users.
 - Use `site_url` for a project website or documentation page — not a second copy of `repository`.
 

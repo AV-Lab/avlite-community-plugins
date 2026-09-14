@@ -22,7 +22,9 @@ plugins:
     category:
       - WorldBridge
     min_avlite_version: "0.4.5"
-    dependency_notes: "ROS 2 and Gazebo Ignition; source ROS 2 before running AVLite; Gazebo/bridge launch must be up first."
+    require_ros: true
+    min_ros_version: humble
+    dependency_notes: "Gazebo Ignition; start the Gazebo/bridge launch before AVLite."
     site_url: ""
   - name: avlite-bridge-ROS2
     display_name: AVLite ROS2 Bridge
@@ -33,7 +35,9 @@ plugins:
     category:
       - WorldBridge
     min_avlite_version: "0.5.3"
-    dependency_notes: "ROS 2 (Humble+); source/load ROS 2 before running AVLite; optional Autoware / autoware_auto_msgs."
+    require_ros: true
+    min_ros_version: humble
+    dependency_notes: "Optional Autoware / autoware_auto_msgs."
     site_url: ""
   - name: avlite-controller-joystick
     display_name: AVLite Joystick Controller
@@ -55,16 +59,18 @@ plugins:
     category:
       - ExecutionStrategy
     min_avlite_version: "0.5.3"
-    dependency_notes: "ROS 2 (Humble+); source/load ROS 2 before running AVLite; optional Autoware messages (autoware_auto_msgs)."
+    require_ros: true
+    min_ros_version: humble
+    dependency_notes: "Optional Autoware messages (autoware_auto_msgs)."
     site_url: "https://avlab.io/avlite-executer-ROS2/"
   - name: basic_predictor
     display_name: Basic Predictor
-    description: LSTM trajectory prediction plugin for AVLite
+    description: LSTM trajectory predictor (SingleTrajectory)
     repository: https://github.com/Murdism/basic_predictor
     version: latest
     author: Murdism
     category:
       - PredictionStrategy
-    min_avlite_version: "0.4.5"
+    min_avlite_version: "0.6.0"
     dependency_notes: ""
     site_url: ""
