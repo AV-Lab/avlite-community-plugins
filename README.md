@@ -108,7 +108,7 @@ To add or update a plugin in this registry:
 - Pin `version` to a specific tag for stability; reserve `latest` for actively developed plugins.
 - Prefer setting `min_avlite_version` when you know the floor. Set `require_ros: true` and `min_ros_version` (optionally `max_ros_version`) when the plugin needs ROS 2. Use `dependency_notes` for anything else users must install or source beyond `requirements.txt`.
 - WorldBridge plugins may include `launch.sh` at the repository root. AVLite warns and can run it in the background to start a vehicle platform or simulator (for example CARLA). The process keeps running after the stack stops.
-- Plugins may include `profile.yaml` at the repository root (same format as `configs/<profile>.yaml`). After Install or Update, AVLite offers to add it as a profile named after the plugin (`name` in this registry). If that profile already exists, AVLite asks before overwriting.
+- Plugins may include `<name>.yaml` at the repository root (registry `name`, e.g. `avlite-bridge-carla.yaml`; same format as `configs/<profile>.yaml`). After Install or Update, AVLite offers to add it as that profile. `c62_community_plugins` must list only this plugin — AVLite will not install other plugins automatically.
 - `name` is an identifier, not a title: AVLite uses it for the install folder, the `avlite.plugins.<name>` import path, the plugin settings file, and profile entries, so it must stay free of spaces and must not change once published. Set `display_name` when the identifier reads poorly to users.
 - Use `site_url` for a project website or documentation page — not a second copy of `repository`.
 
