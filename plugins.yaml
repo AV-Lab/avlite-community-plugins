@@ -74,3 +74,15 @@ plugins:
     min_avlite_version: "0.6.0"
     dependency_notes: ""
     site_url: ""
+  - name: p20_risk_aware_planner
+    display_name: Risk-aware Planner
+    description: Fixed state lattice, rolling risk-constrained planning, and optional smoothing
+    repository: https://github.com/abdohamdy7/risk-aware-planner-avlite-plugins
+    version: v0.1.0
+    author: abdohamdy7
+    category:
+      - LocalPlanningStrategy
+    min_avlite_version: "0.5.3"
+    require_ros: false
+    dependency_notes: "Optional smoothing: requirements-smoothing.txt. Full companion demo verified on AVLite 0.5.3; see VERIFICATION.md for 0.6.4 limitations."
+    site_url: ""
