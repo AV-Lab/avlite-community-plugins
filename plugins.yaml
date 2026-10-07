@@ -78,7 +78,7 @@ plugins:
     display_name: Risk-aware Planner
     description: Fixed state lattice, rolling risk-constrained planning, and optional smoothing
     repository: https://github.com/abdohamdy7/risk-aware-planner-avlite-plugins
-    version: v0.1.0
+    version: latest
     author: abdohamdy7
     category:
       - LocalPlanningStrategy
