@@ -86,3 +86,16 @@ plugins:
     require_ros: false
     dependency_notes: "Optional smoothing: requirements-smoothing.txt. Full companion demo verified on AVLite 0.5.3; see VERIFICATION.md for 0.6.4 limitations."
     site_url: ""
+  - name: race_diffusion
+    display_name: RaceDiffusion Prediction
+    description: Diffusion-based 2 s trajectory prediction for autonomous racing
+    repository: https://github.com/Zakhar02/avlite-race-diffusion
+    version: v1.0.0
+    author: Iana Zhura, Zakhar Yagudin, Dzmitry Tsetserukou
+    category:
+      - PredictionStrategy
+    min_avlite_version: "0.6.5"
+    require_ros: false
+    dependency_notes: "pip install torch einops (CUDA build of torch recommended)."
+    site_url: ""
+
