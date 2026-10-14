@@ -58,7 +58,7 @@ plugins:
     author: AV-Lab
     category:
       - ExecutionStrategy
-    min_avlite_version: "0.5.3"
+    min_avlite_version: "0.6.6"
     require_ros: true
     min_ros_version: humble
     dependency_notes: "Optional Autoware messages (autoware_auto_msgs)."
