@@ -102,7 +102,7 @@ plugins:
     display_name: Tube MPC Controller
     description: Tube MPC Controller for smooth high speed autonomous racing
     repository: https://github.com/abdullah-ssyss/A2RL-Tube-MPC-Controller
-    version: latest              # or a git tag / commit SHA
-    author: Abdullah Al Mashhadany, Osama Elmahdy
+    version: latest
+    author: Abdullah Al-Mashhadany, Osama Elmahdy
     category:
       - ControlStrategy
