@@ -98,4 +98,11 @@ plugins:
     require_ros: false
     dependency_notes: "pip install torch einops (CUDA build of torch recommended)."
     site_url: ""
-
+  - name: race_tube_mpc
+    display_name: Tube MPC Controller
+    description: Tube MPC Controller for smooth high speed autonomous racing
+    repository: https://github.com/abdullah-ssyss/A2RL-Tube-MPC-Controller
+    version: latest
+    author: Abdullah Al-Mashhadany, Osama Elmahdy
+    category:
+      - ControlStrategy
