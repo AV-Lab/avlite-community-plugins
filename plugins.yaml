@@ -63,6 +63,18 @@ plugins:
     min_ros_version: humble
     dependency_notes: "Optional Autoware messages (autoware_auto_msgs)."
     site_url: "https://avlab.io/avlite-executer-ROS2/"
+  - name: avlite-QT5
+    display_name: AVLite Qt5 App
+    description: PyQt5 desktop GUI AppStrategy for AVLite (map, controls, settings, logs)
+    repository: https://github.com/rsi-lab/avlite-QT5
+    version: latest
+    author: rsi-lab
+    category:
+      - AppStrategy
+    min_avlite_version: "0.6.7"
+    require_ros: false
+    dependency_notes: "pip install -r requirements.txt (PyQt5, pyqtgraph, numpy, pydantic). Needs a display for the GUI."
+    site_url: ""
   - name: basic_predictor
     display_name: Basic Predictor
     description: LSTM trajectory predictor (SingleTrajectory)
