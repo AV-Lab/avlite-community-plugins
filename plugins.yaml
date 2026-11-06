@@ -73,7 +73,6 @@ plugins:
       - AppStrategy
     min_avlite_version: "0.6.7"
     require_ros: false
-    dependency_notes: "pip install -r requirements.txt (PyQt5, pyqtgraph, numpy, pydantic). Needs a display for the GUI."
     site_url: ""
   - name: basic_predictor
     display_name: Basic Predictor
