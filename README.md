@@ -39,6 +39,7 @@ Use one or more of the following standard categories for `category`. If your plu
 - `TaskStrategy` — stack-extension execution tasks (every cycle / interval / ON_EVENT)
 - `WorldBridge` — bridges to simulators, middleware, or external world interfaces
 - `AppStrategy` — CLI/GUI app entry plugins
+- `PlotStrategy` — visualizer plot pane
 
 ### Example entries
 
