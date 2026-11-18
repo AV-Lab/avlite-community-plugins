@@ -65,7 +65,7 @@ plugins:
     site_url: "https://avlab.io/avlite-executer-ROS2/"
   - name: avlite-QT5
     display_name: AVLite Qt5 App
-    description: Qt5 desktop visualizer for AVLite: a faster, OpenGL-accelerated alternative to the Tk UI.
+    description: "Qt5 desktop visualizer for AVLite: a faster, OpenGL-accelerated alternative to the Tk UI."
     repository: https://github.com/rsi-lab/avlite-QT5
     version: latest
     author: rsi-lab
