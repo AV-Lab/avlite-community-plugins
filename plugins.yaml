@@ -2,6 +2,25 @@
 # Each entry points to an external Git repository (see README.md for schema).
 
 plugins:
+  - name: avlite-behavior-hdmap
+    display_name: AVLite Behavior Planning
+    description: Road and race behavior planning, planner selection, and selectable parking.
+    repository: https://github.com/codhuck/avilite_behavior_planning
+    version: latest
+    author: codhuck
+    category:
+      - GlobalPlannerStrategy
+      - LocalPlanningStrategy
+      - TaskStrategy
+      - DetectionStrategy
+      - ControlStrategy
+      - ExecutionStrategy
+      - WorldBridge
+    min_avlite_version: "0.6.7"
+    require_ros: false
+    dependency_notes: "BasicSim examples need no simulator or model downloads. CARLA sensor examples require a compatible bridge, server and model assets."
+    site_url: https://github.com/codhuck/avilite_behavior_planning#readme
+
   - name: avlite-bridge-carla
     display_name: AVLite CARLA Bridge
     description: CARLA simulator world bridge for AVLite
