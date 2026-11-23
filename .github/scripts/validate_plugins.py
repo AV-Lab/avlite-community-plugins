@@ -32,6 +32,7 @@ import os
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -78,8 +79,10 @@ ALLOWED_CATEGORIES = {
     "LocalPlanningStrategy",
     "ControlStrategy",
     "ExecutionStrategy",
+    "TaskStrategy",
     "WorldBridge",
     "AppStrategy",
+    "PlotStrategy",
 }
 
 # Official plugins use kebab-case (`avlite-bridge-carla`); community plugins
@@ -119,6 +122,20 @@ class Problems:
             return 1
         print(f"Validation passed ({len(self.warnings)} warning(s)).")
         return 0
+
+
+def valid_site_url(url: str) -> bool:
+    if url.startswith("git@"):
+        return bool(URL_RE.fullmatch(url))
+    if any(c.isspace() or ord(c) < 32 or ord(c) == 127 or c == "\\" for c in url):
+        return False
+    try:
+        parsed = urllib.parse.urlsplit(url)
+        return parsed.scheme in {"http", "https"} and bool(parsed.hostname) and (
+            parsed.port is None or 0 <= parsed.port <= 65535
+        )
+    except ValueError:
+        return False
 
 
 def load_plugins(problems: Problems) -> list[dict[str, Any]]:
@@ -242,7 +259,7 @@ def validate_entry(idx: int, entry: Any, problems: Problems) -> None:
 
     # Optional site_url format (empty string allowed)
     site = entry.get("site_url")
-    if isinstance(site, str) and site.strip() and not URL_RE.match(site):
+    if isinstance(site, str) and site.strip() and not valid_site_url(site):
         problems.error(f"{label}: `site_url` is not a valid URL: {site!r}")
 
 
